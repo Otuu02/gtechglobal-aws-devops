@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gtech-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gtech-api
+  template:
+    metadata:
+      labels:
+        app: gtech-api
+    spec:
+      containers:
+      - name: gtech-api
+        image: gtechacr2026.azurecr.io/gtech-api:latest
+        ports:
+        - containerPort: 4000
+        envFrom:
+        - configMapRef:
+            name: gtech-api-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gtech-api-service
+spec:
+  selector:
+    app: gtech-api
+  ports:
+  - port: 80
+    targetPort: 4000
+  type: LoadBalancer

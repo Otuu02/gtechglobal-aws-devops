@@ -1,0 +1,334 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-canvas: #010102;
+  --bg-surface-0: #0f1011;
+  --bg-surface-1: #141516;
+  --bg-surface-2: #18191a;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --text-primary: #f7f8f8;
+  --text-secondary: #8a8f98;
+  --text-muted: #62666d;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html { scroll-behavior: smooth; }
+
+html, body {
+  height: 100%;
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(94, 106, 210, 0.35); color: #fff; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.14); }
+
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(94, 106, 210, 0.5);
+  border-radius: 6px;
+}
+
+/* Typography */
+.text-display {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.text-label {
+  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.text-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Surface ladder */
+.surface-0 {
+  background: var(--bg-surface-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.surface-1 {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.surface-2 {
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+}
+
+.hover-lift {
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-default);
+  box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.4);
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fadeUp     { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fadeIn     { animation: fadeIn 0.4s ease-out both; }
+.animate-pulseSoft  { animation: pulseSoft 2s ease-in-out infinite; }
+.animate-slideIn    { animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.delay-50  { animation-delay: 0.05s; }
+.delay-100 { animation-delay: 0.10s; }
+.delay-150 { animation-delay: 0.15s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+
+/* ─── Animated Logo ─────────────────────────────────────── */
+
+@keyframes logoEnter {
+  0%   { opacity: 0; transform: scale(0.85); filter: blur(8px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes logoGlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%      { opacity: 0.65; transform: scale(1.08); }
+}
+
+@keyframes logoRingSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes logoRingSpinReverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+@keyframes squarePulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+@keyframes shimmerSweep {
+  0%   { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+}
+
+.logo-enter {
+  animation: logoEnter 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.logo-float {
+  animation: logoFloat 6s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+.logo-glow {
+  animation: logoGlow 4s ease-in-out infinite;
+}
+
+.logo-ring-spin {
+  animation: logoRingSpin 24s linear infinite;
+  transform-origin: center;
+}
+
+.logo-ring-spin-reverse {
+  animation: logoRingSpinReverse 32s linear infinite;
+  transform-origin: center;
+}
+
+.logo-square-1 { animation: squarePulse 2.4s ease-in-out infinite; animation-delay: 0s; }
+.logo-square-2 { animation: squarePulse 2.4s ease-in-out infinite; animation-delay: 0.4s; }
+.logo-square-3 { animation: squarePulse 2.4s ease-in-out infinite; animation-delay: 0.8s; }
+.logo-square-4 { animation: squarePulse 2.4s ease-in-out infinite; animation-delay: 1.2s; }
+
+.logo-shimmer {
+  animation: shimmerSweep 3.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+/* Shimmer bar sweep across the animated logo */
+@keyframes shimmerBar {
+  0%   { transform: translateX(-120%) rotate(12deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateX(320%) rotate(12deg); opacity: 0; }
+}
+.logo-shimmer-bar {
+  animation: shimmerBar 4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: 1.8s;
+}
+
+/* ═══════════════════════════════════════════════════════
+   GTECHGLOBAL — Cinematic logo intro
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes glowIn {
+  0%   { opacity: 0; transform: scale(0.6); }
+  40%  { opacity: 0.7; transform: scale(1.05); }
+  100% { opacity: 0.55; transform: scale(1); }
+}
+.logo-glow { animation: glowIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* --- Ring spin (continuous, ambient) --- */
+@keyframes logoRingSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes logoRingSpinReverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+.logo-ring-spin         { animation: logoRingSpin 28s linear infinite; transform-origin: center; }
+.logo-ring-spin-reverse { animation: logoRingSpinReverse 40s linear infinite; transform-origin: center; }
+
+/* --- G rotates in --- */
+@keyframes gEnter {
+  0%   { opacity: 0; transform: rotate(-180deg) scale(0.4); transform-origin: 220px 250px; filter: blur(6px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: rotate(0deg) scale(1); transform-origin: 220px 250px; }
+}
+.anim-g {
+  animation: gEnter 1.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.4s;
+  transform-box: fill-box;
+}
+
+/* --- Swoosh draws in --- */
+@keyframes swooshDraw {
+  from { stroke-dashoffset: 500; opacity: 0; }
+  to   { stroke-dashoffset: 0;   opacity: 1; }
+}
+.anim-swoosh {
+  stroke-dasharray: 500;
+  animation: swooshDraw 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 1.5s;
+}
+
+/* --- Accent squares drop in one by one --- */
+@keyframes squareDrop {
+  0%   { opacity: 0; transform: translateY(-30px) scale(0.4); }
+  70%  { opacity: 1; transform: translateY(4px) scale(1.15); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.anim-square { transform-box: fill-box; transform-origin: center; }
+.anim-square-1 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: 1.2s; }
+.anim-square-2 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: 1.35s; }
+.anim-square-3 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: 1.5s; }
+.anim-square-4 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: 1.65s; }
+
+/* --- Squares keep pulsing after they land --- */
+@keyframes squarePulse {
+  0%, 100% { opacity: 0.75; }
+  50%      { opacity: 1; }
+}
+.anim-square-1 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both 1.2s,
+                            squarePulse 2.4s ease-in-out infinite 2s; }
+.anim-square-2 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both 1.35s,
+                            squarePulse 2.4s ease-in-out infinite 2.2s; }
+.anim-square-3 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both 1.5s,
+                            squarePulse 2.4s ease-in-out infinite 2.4s; }
+.anim-square-4 { animation: squareDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both 1.65s,
+                            squarePulse 2.4s ease-in-out infinite 2.6s; }
+
+/* --- Wordmark fades up with letter spacing --- */
+@keyframes wordmarkIn {
+  0%   { opacity: 0; transform: translateY(20px); letter-spacing: 6px; }
+  100% { opacity: 1; transform: translateY(0);    letter-spacing: -1.5px; }
+}
+.anim-wordmark {
+  animation: wordmarkIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 2s;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* --- Tagline fades in --- */
+@keyframes taglineIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-tagline {
+  animation: taglineIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 2.6s;
+  transform-box: fill-box;
+}
+
+/* --- Gentle float continues after intro --- */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.logo-float {
+  animation: logoFloat 6s ease-in-out infinite;
+  animation-delay: 3.5s;
+}
+
+/* --- Shimmer sweep across the G --- */
+@keyframes shimmer {
+  0%   { transform: translateX(-150%) skewX(-15deg); }
+  100% { transform: translateX(450%) skewX(-15deg); }
+}
+.anim-shimmer {
+  animation: shimmer 3.5s ease-in-out infinite;
+  animation-delay: 3.2s;
+}
+
+/* --- Shimmer bar across the whole block --- */
+@keyframes shimmerBar {
+  0%   { transform: translateX(-120%) rotate(12deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateX(320%) rotate(12deg); opacity: 0; }
+}
+.logo-shimmer-bar {
+  animation: shimmerBar 4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: 3.8s;
+}
