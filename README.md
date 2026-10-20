@@ -25,7 +25,7 @@ This repository contains the complete Infrastructure as Code (IaC) and CI/CD pip
 *Flow: GitHub ➔ GitHub Actions ➔ Azure Container Registry (ACR) ➔ Azure Kubernetes Service (AKS) ➔ Azure LoadBalancer*
 
 ### CI/CD Pipeline
-We use **GitHub Actions** for a fully automated build and deploy process. On every push to the `master` branch, the pipeline:
+I use **GitHub Actions** for a fully automated build and deploy process. On every push to the `master` branch, the pipeline:
 1. Authenticates securely to Azure using a Service Principal.
 2. Builds the API and Web multi-stage Docker images using `az acr build`.
 3. Updates the Kubernetes manifests.
