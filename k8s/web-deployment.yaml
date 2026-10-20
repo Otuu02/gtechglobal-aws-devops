@@ -19,7 +19,9 @@ spec:
         - containerPort: 3000
         env:
         - name: NEXT_PUBLIC_API_URL
-          value: "http://74.179.211.139"
+          value: "http://52.234.236.27" # Pointing to your API's LoadBalancer IP
+        - name: HOSTNAME
+          value: "0.0.0.0" # Forces Next.js to listen to the outside world
 ---
 apiVersion: v1
 kind: Service
