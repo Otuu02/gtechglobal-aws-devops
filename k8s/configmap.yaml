@@ -9,7 +9,7 @@ data:
   JWT_EXPIRES_IN: "15m"
   JWT_REFRESH_SECRET: "demo-jwt-refresh-secret-replace-in-production-bbbb"
   JWT_REFRESH_EXPIRES_IN: "7d"
-  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/gtechglobal_os"
+  DATABASE_URL: "postgresql://postgres:postgres@postgres-service:5432/gtechglobal_os"
   REDIS_URL: "redis://localhost:6379"
   WEB_URL: "http://localhost:3000"
   API_URL: "http://localhost:4000"

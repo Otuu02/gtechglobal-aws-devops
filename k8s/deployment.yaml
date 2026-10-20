@@ -12,6 +12,10 @@ spec:
       labels:
         app: gtech-api
     spec:
+      initContainers:
+      - name: wait-for-postgres
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nc -z postgres-service 5432; do echo waiting for postgres; sleep 2; done;']
       containers:
       - name: gtech-api
         image: gtechacr2026.azurecr.io/gtech-api:latest
