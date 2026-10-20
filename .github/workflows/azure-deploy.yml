@@ -40,6 +40,8 @@ jobs:
       run: |
         kubectl apply -f k8s/configmap.yaml
         kubectl apply -f k8s/postgres.yaml
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/web-deployment.yaml
         kubectl set image deployment/gtech-api gtech-api=${{ env.ACR_NAME }}.azurecr.io/gtech-api:latest
         kubectl set image deployment/gtech-web gtech-web=${{ env.ACR_NAME }}.azurecr.io/gtech-web:latest
         kubectl rollout status deployment/gtech-api
