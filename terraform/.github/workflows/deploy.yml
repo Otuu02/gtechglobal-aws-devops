@@ -1,0 +1,45 @@
+name: Azure CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  ACR_NAME: gtechacr2026
+  RESOURCE_GROUP: VisualStudioOnline-1FA42575C2DD4E6791F652D30228ADB3
+  CLUSTER_NAME: gtech-aks
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build and Push API Image
+      run: |
+        az acr build --registry ${{ env.ACR_NAME }} --image gtech-api:latest -f docker/Dockerfile.api .
+
+    - name: Build and Push Web Image
+      run: |
+        az acr build --registry ${{ env.ACR_NAME }} --image gtech-web:latest -f docker/Dockerfile.web .
+
+    - name: Set AKS Context
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: ${{ env.RESOURCE_GROUP }}
+        cluster-name: ${{ env.CLUSTER_NAME }}
+
+    - name: Deploy to AKS
+      run: |
+        kubectl apply -f k8s/configmap.yaml
+        kubectl apply -f k8s/postgres.yaml
+        kubectl set image deployment/gtech-api gtech-api=${{ env.ACR_NAME }}.azurecr.io/gtech-api:latest
+        kubectl set image deployment/gtech-web gtech-web=${{ env.ACR_NAME }}.azurecr.io/gtech-web:latest
+        kubectl rollout status deployment/gtech-api
+        kubectl rollout status deployment/gtech-web
